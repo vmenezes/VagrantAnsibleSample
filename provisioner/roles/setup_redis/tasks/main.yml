@@ -1,0 +1,9 @@
+---
+  - name: Install Redis server
+    apt: name=redis-server
+
+  - name: Open Redis to listen on 0.0.0.0 instead of just localhost
+    lineinfile:
+      path: /etc/redis/redis.conf
+      regexp: '^bind '
+      line: 'bind 0.0.0.0'

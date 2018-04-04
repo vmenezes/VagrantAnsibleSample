@@ -1,0 +1,25 @@
+---
+  - name: Install Postgres server
+    apt: name=postgresql-9.5
+
+  - name: Install Postgres dev for extensions including PostGIS, Python connector, etc
+    apt: name=postgresql-server-dev-9.5
+
+  - name: Install psycopg2 globaly, required by Ansible postgres_user module
+    pip:
+      name: psycopg2
+      executable: pip3
+
+  - name: Create "ubuntu" superuser role
+    become_user: postgres
+    postgresql_user:
+      login_user: postgres
+      login_password: None
+      name: ubuntu
+      role_attr_flags: CREATEDB,SUPERUSER
+
+  - name: Create "mysite" DB
+    become_user: ubuntu
+    postgresql_db:
+      login_user: ubuntu
+      name: mysite

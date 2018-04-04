@@ -1,0 +1,13 @@
+---
+- name: Setup Vagrant for Python3 development with Virtualenvwrapper, Postgres and Redis
+  hosts: all
+  vars:
+    # workaround as Ubuntu16 does not come with Python2
+    # and Ansible uses Python2 by default
+    ansible_python_interpreter: "/usr/bin/python3"
+  become: yes
+  become_method: sudo
+  roles:
+    - setup_pip_and_virtualenvwrapper
+    - setup_redis
+    - setup_postgres
