@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/bionic64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -73,5 +73,9 @@ Vagrant.configure("2") do |config|
   # SHELL
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "provisioner/playbook.yml"
+    # Uses pip to install ansible because bug on current version of Ansible crashes
+    # trying to install python-software-properties that isnt available/needed
+    # on Ubuntu18 anymore. To be fixed on Ansible 2.1.2
+    ansible.install_mode = "pip"
   end
 end
