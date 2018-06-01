@@ -1,9 +1,9 @@
 ---
   - name: Install Postgres server
-    apt: name=postgresql-9.5
+    apt: name=postgresql-10
 
   - name: Install Postgres dev for extensions including PostGIS, Python connector, etc
-    apt: name=postgresql-server-dev-9.5
+    apt: name=postgresql-server-dev-10
 
   - name: Install psycopg2 globaly, required by Ansible postgres_user module
     pip:
